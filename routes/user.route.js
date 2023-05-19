@@ -8,12 +8,15 @@ app.use(express.json())
 /** load controller of menu */
 const userController = require(`../controllers/user.controller`)
 
+/** call authorization method */
+const { authorization } = require('../controllers/auth.controller')
+
 /** create route */
-app.post(`/user`, userController.addUser)
-app.get(`/user`, userController.getUser)
-app.post(`/user/find`, userController.findUser)
-app.put(`/user/:id_user`, userController.updateUser)
-app.delete(`/user/:id_user`, userController.deleteUser)
+app.post(`/user`,  authorization(["admin", "kasir"]),userController.addUser)
+app.get(`/user`,  authorization(["admin", "kasir"]),userController.getUser)
+app.post(`/user/find`,  authorization(["admin", "kasir"]),userController.findUser)
+app.put(`/user/:id_user`,  authorization(["admin", "kasir"]),userController.updateUser)
+app.delete(`/user/:id_user`,  authorization(["admin", "kasir"]),userController.deleteUser)
 
 /** epxort module nya */
 module.exports = app
