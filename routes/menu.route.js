@@ -12,11 +12,11 @@ const menuController = require(`../controllers/menu.controller`)
 const { authorization } = require('../controllers/auth.controller')
 
 /** create route */
-app.post(`/menu`, authorization(["admin", "kasir"]),menuController.addMenu)
-app.get(`/menu`, authorization(["admin", "kasir"]),menuController.getMenu)
-app.post(`/menu/find`, authorization(["admin", "kasir"]),menuController.findMenu)
-app.put(`/menu/:id_menu`,authorization(["admin", "kasir"]), menuController.updateMenu)
-app.delete(`/menu/:id_menu`, authorization(["admin", "kasir"]),menuController.deleteMenu)
+app.post(`/menu`, authorization(["admin", "kasir", "manajer"]),menuController.addMenu)
+app.get(`/menu`, authorization(["admin", "kasir", "manajer"]),menuController.getMenu)
+app.post(`/menu/find`, authorization(["admin", "kasir", "manajer"]),menuController.findMenu)
+app.put(`/menu/:id_menu`,authorization(["admin", "kasir","manajer"]), menuController.updateMenu)
+app.delete(`/menu/:id_menu`, authorization(["admin", "kasir","manajer"]),menuController.deleteMenu)
 
 /** epxort module nya */
 module.exports = app

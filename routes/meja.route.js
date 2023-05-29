@@ -13,9 +13,9 @@ const { authorization } = require('../controllers/auth.controller')
 
 /** route to get all data meja */
 app.get(`/meja`, authorization(["admin", "kasir", "manajer"]), mejaController.getMeja)
-app.get(`/meja/avail`, authorization(["admin", "kasir"," manajer"]),mejaController.availableMeja)
+app.get(`/meja/avail`, authorization(["admin", "kasir","manajer"]),mejaController.availableMeja)
 app.post(`/meja`, authorization(["admin", "kasir", "manajer"]),mejaController.addMeja)
-app.put(`/meja/:id_meja`, authorization(["admin", "kasir"," manajer"]),mejaController.updateMeja)
+app.put(`/meja/:id_meja`, authorization(["admin", "kasir","manajer"]),mejaController.updateMeja)
 app.delete(`/meja/:id_meja`, authorization(["admin", "kasir", "manajer"]),mejaController.deleteMeja)
 
 /** export app objet */

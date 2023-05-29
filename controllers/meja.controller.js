@@ -101,7 +101,7 @@ exports.addMeja = async (request, response) => {
 }
 
 /** create and export func to update meja */
-exports.updateMeja = async (response, request) => {
+exports.updateMeja = async (request, response) => {
     try {
         /** get parameter for update */
         let id_meja = request.params.id_meja
@@ -119,7 +119,7 @@ exports.updateMeja = async (response, request) => {
         }
 
         /** run update meja using meja model */
-        await mejaModel.update(request.body, { 
+        await mejaModel.update(request.body,{ 
             where: {id_meja: id_meja}
         })
 

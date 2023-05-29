@@ -11,10 +11,10 @@ const transaksiController = require(`../controllers/transaksi.controller`)
 const { authorization } = require('../controllers/auth.controller')
 
 /** create route */
-app.post(`/transaksi`, authorization(["admin", "kasir"]),transaksiController.addTransaksi)
-app.get(`/transaksi`, authorization(["admin", "kasir"]),transaksiController.getTransaksi)
-app.put(`/transaksi/:id_transaksi`, authorization(["admin", "kasir"]),transaksiController.updateTransaksi)
-app.delete(`/transaksi/:id_transaksi`, authorization(["admin", "kasir"]),transaksiController.deleteTransaksi)
+app.post(`/transaksi`, authorization(["admin", "kasir","manajer"]),transaksiController.addTransaksi)
+app.get(`/transaksi`, authorization(["admin", "kasir","manajer"]),transaksiController.getTransaksi)
+app.put(`/transaksi/:id_transaksi`, authorization(["admin", "kasir","manajer"]),transaksiController.updateTransaksi)
+app.delete(`/transaksi/:id_transaksi`, authorization(["admin", "kasir","manajer"]),transaksiController.deleteTransaksi)
 
 /** epxort module nya */
 module.exports = app

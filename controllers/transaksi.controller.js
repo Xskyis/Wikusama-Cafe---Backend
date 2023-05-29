@@ -7,6 +7,8 @@ const transaksiModel = require(`../models/index`).transaksi
 const detailModel = require(`../models/index`).detail_transaksi
 const menuModel = require(`../models/index`).menu
 
+const mejaModel = require(`../models/index`).meja
+
 /** create & exprt func to add transaksi */
 exports.addTransaksi = async (request, response) => {
     try {
@@ -48,6 +50,13 @@ exports.addTransaksi = async (request, response) => {
          */
 
         await detailModel.bulkCreate(arrDetail)
+
+        /** Update meja status */
+        await mejaModel.update(
+            { status: false },
+            { where: { id_meja: request.body.id_meja } }
+        );
+
 
         /** give a response */
         return response.json({
@@ -140,6 +149,17 @@ exports.deleteTransaksi = async (request, response) => {
             where: { id_transaksi: id_transaksi }
         })
 
+        /** Update status meja menjadi true */
+        let transaksi = await transaksiModel.findOne({
+            where: { id_transaksi: id_transaksi },
+            include: [{ model: mejaModel }]
+        })
+
+        if (transaksi && transaksi.meja) {
+            transaksi.meja.status = true
+            await transaksi.meja.save()
+        }
+
         /** give a response */
         return response.json({
             status: true,
@@ -154,10 +174,9 @@ exports.deleteTransaksi = async (request, response) => {
     }
 }
 
-/** create func to get all transaksi */
+
 exports.getTransaksi = async (request, response) => {
     try {
-        /** get all data using model */
         let result = await transaksiModel.findAll({
             include: [
                 "meja",
@@ -167,10 +186,10 @@ exports.getTransaksi = async (request, response) => {
                     as: "detail_transaksi",
                     include: ["menu"]
                 }
-            ]
+            ],
+            order: [['createdAt', 'DESC']] // Order by the 'createdAt' column in descending order
         })
 
-        /** give a response */
         return response.json({
             status: true,
             data: result

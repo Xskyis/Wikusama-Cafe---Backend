@@ -14,10 +14,9 @@ let validateUser = (input) => {
     let rules = joi.object()
         .keys({
             nama_user: joi.string().required(),
-            role: joi.string().valid(`kasir`, `admin`, `manajer`).required(),
+            role: joi.string().valid(`kasir`,`admin`,`manajer`).required(),
             username: joi.string().required(),
-            username: joi.string().required(),
-            password: joi.string().min(8).required()
+            password: joi.string().min(8).required(),
         })
 
     /** process validation */
